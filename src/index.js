@@ -91,6 +91,17 @@ class RawTool {
 
     textarea.placeholder = this.placeholder;
 
+    textarea.addEventListener('keydown', (event) => {
+      if (event.code !== 'Enter' || event.shiftKey) {
+        return ;
+      }
+
+      this.api.blocks.insert();
+      this.api.caret.setToBlock(this.api.blocks.getCurrentBlockIndex());
+
+      event.preventDefault();
+    });
+
     wrapper.appendChild(textarea);
 
     return wrapper;
